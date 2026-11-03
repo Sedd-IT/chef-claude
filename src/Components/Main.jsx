@@ -1,26 +1,27 @@
 import React from "react"
 import ClaudeRecipe from "./ClaudeRecipe"
 import List from "./List"
-import {getRecipes} from "./ai"
+import {getRecipes} from "../ai"
 
 export default function Main() {
 
 
-    const [ingredients, setIngredients] = React.useState(["Tomato","Potato","Chicken","Eggs"])
+    const [ingredients, setIngredients] = React.useState([])
     const [recipe, setRecipe] = React.useState("")
-    
-    async function getRecipe() {
-        const recipeMarkdown = await getRecipes(ingredients)
-        setRecipe(recipeMarkdown)
+
+    function addIngredient(formData) {
+        const newIngredient = formData.get("ingredient")
+        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
     }
 
     const ingredientsListItems = ingredients.map(ingredient => (
         <li key={ingredient}>{ingredient}</li>
     ))
 
-    function addIngredient(formData) {
-        const newIngredient = formData.get("ingredient")
-        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
+    async function getRecipe() {
+        const recipeMarkdown = await getRecipes(ingredients)
+        setRecipe(recipeMarkdown)
+
     }
 
     return (
@@ -35,7 +36,7 @@ export default function Main() {
                 <button>Add ingredient</button>
             </form>
             <List list={ingredientsListItems} getRecipe={getRecipe} />
-            {recipe && <ClaudeRecipe Recipe = {recipe} />}
+            {recipe && <ClaudeRecipe Recipe = {recipe}  />} 
             
         </main>
     )
