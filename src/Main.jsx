@@ -6,7 +6,7 @@ import {getRecipes} from "./ai"
 export default function Main() {
 
 
-    const [ingredients, setIngredients] = React.useState([])
+    const [ingredients, setIngredients] = React.useState(["Tomato","Potato","Chicken","Eggs"])
     const [recipe, setRecipe] = React.useState("")
     
     async function getRecipe() {

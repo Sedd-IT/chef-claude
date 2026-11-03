@@ -10,7 +10,7 @@ export async function getRecipes(ingredientsArr) {
   if (!key) {
     throw new Error("Missing key. Add VITE_GEMINI_API_KEY to your .env file and restart the dev server.")
   }
-
+ 
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
     {
